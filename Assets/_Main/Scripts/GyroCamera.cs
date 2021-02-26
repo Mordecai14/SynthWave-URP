@@ -61,11 +61,7 @@ public class GyroCamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cameraContainer = new GameObject("Camera Container");
-        cameraContainer.transform.position = new Vector3(0,0,0);
-        transform.SetParent(cameraContainer.transform);
-
-        EnableGyro();
+        StartCoroutine(WaitToGyro());
     }
 
     // Update is called once per frame
@@ -77,9 +73,21 @@ public class GyroCamera : MonoBehaviour
         }
 
 
-        if (gameObject.transform.position.z >= 26f)
+        if (gameObject.transform.position.z >= 19f)
         {
             SceneManager.LoadScene(0);
         }
+    }
+
+    IEnumerator WaitToGyro()
+    {
+        Debug.Log("Not 1");
+        yield return new WaitForSeconds(2f);
+        Debug.Log("Not 2");
+        cameraContainer = new GameObject("Camera Container");
+        cameraContainer.transform.position = new Vector3(0, 0, 0);
+        transform.SetParent(cameraContainer.transform);
+
+        EnableGyro();
     }
 }
